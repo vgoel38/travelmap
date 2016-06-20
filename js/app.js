@@ -31,6 +31,56 @@ var locations = [
         name: 'Mumbai',
         position: {lat: 19.0760, lng: 72.8777},
         visible: true
+    },
+    {
+        name: 'Kashmir',
+        position: {lat: 34.0837, lng: 74.7973},
+        visible: true
+    },
+    {
+        name: 'Pondicherry',
+        position: {lat: 11.9139, lng: 79.8145},
+        visible: true
+    },
+    {
+        name: 'Pehalgam',
+        position: {lat: 34.0161, lng: 75.3150},
+        visible: true
+    },
+    {
+        name: 'Gulmarg',
+        position: {lat: 34.0476, lng: 74.3854},
+        visible: true
+    },
+    {
+        name: 'Singapore',
+        position: {lat: 1.3521, lng: 103.8198},
+        visible: true
+    },
+    {
+        name: 'Malaysia',
+        position: {lat: 4.2105, lng: 101.9758},
+        visible: true
+    },
+    {
+        name: 'Manali',
+        position: {lat: 32.2396, lng: 77.1887},
+        visible: true
+    },
+    {
+        name: 'Nainital',
+        position: {lat: 29.3803, lng: 79.4636},
+        visible: true
+    },
+    {
+        name: 'Shimla',
+        position: {lat: 31.1048, lng: 77.1734},
+        visible: true
+    },
+    {
+        name: 'Rishikesh',
+        position: {lat: 30.0869, lng: 78.2676},
+        visible: true
     }
 ];
 
@@ -81,11 +131,14 @@ var ViewModel = function(){
         var wikiInfo='<ul id="wiki-articles">';
         var wikiURL = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + loc.name + '&format=json&callback=wikicallback';
 
+        //Since the wikipedia info is received by the browser asynchronously, the markers and list have to be
+        //created only after the wiki info is received. Therefore, the locationList Array is built within the
+        //ajax request.
+        //Doubt- What if I want to use two APIs instead of a single API?
         $.ajax ({
             url: wikiURL,
             dataType: "jsonp"
             }).done(function(response){
-
                 var articleList = response[1];
                 for (var i=0; i<articleList.length; i++){
                     articleStr = articleList[i];
@@ -96,21 +149,17 @@ var ViewModel = function(){
 
                 //Building the locationList Array
                 self.locationList.push(new Location(loc,wikiInfo));
-                //Adding Marker Animation and Info Window to each item in LocationList Array
-                self.locationList().forEach(function(loc){
-                    self.addAnimationAndInfo(loc);
-                });
+                //Adding Marker Animation and Info Window to the last item in the array
+                self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
             }).fail(function( jqxhr, textStatus, error ) {
-                    //error handling
-                    var err = textStatus + ", " + error;
-                    console.log( "Request Failed: " + err );
-                    wikiInfo+='</ul>Sorry! Wikipedia articles could not be loaded!';
-                    //Building the locationList Array
-                    self.locationList.push(new Location(loc,wikiInfo));
-                    //Adding Marker Animation and Info Window to each item in LocationList Array
-                    self.locationList().forEach(function(loc){
-                        self.addAnimationAndInfo(loc);
-                    });
+                //error handling
+                var err = textStatus + ", " + error;
+                console.log( "Request Failed: " + err );
+                wikiInfo+='</ul>Sorry! Wikipedia articles could not be loaded!';
+                //Building the locationList Array
+                self.locationList.push(new Location(loc,wikiInfo));
+                //Adding Marker Animation and Info Window to the last item in the array
+                self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
             });
     });
 
