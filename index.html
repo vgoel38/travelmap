@@ -12,9 +12,10 @@
     <div id="map"></div>
 
     <div id="location-list">
-    <ul data-bind="foreach: locationList">
-      <li data-bind="text: $data.name"></li>
-    </ul>
+      <input type="text" name="filter" data-bind="textInput: filterText">
+      <ul data-bind="foreach: locationList">
+        <li data-bind="text: $data.name, visible: $data.visible, click: $parent.animateAndShowInfo"></li>
+      </ul>
     </div>
 
     <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
