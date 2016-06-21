@@ -169,6 +169,12 @@ var ViewModel = function(){
         loc.marker.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function(){ loc.marker.marker.setAnimation(null); }, 750);
         loc.infoWindow.infoWindow.open(map, loc.marker.marker);
+        if(self.openedLoc){
+            self.openedLoc.infoWindow.infoWindow.close();
+            self.openedLoc=loc;
+        }
+        else
+            self.openedLoc=loc;
     };
 
     //Calls animateAndShowInfo on a location marker
