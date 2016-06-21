@@ -140,7 +140,7 @@ var ViewModel = function(){
             dataType: "jsonp"
             }).done(function(response){
                 var articleList = response[1];
-                for (var i=0; i<articleList.length; i++){
+                for (var i=0; i<4 && i<articleList.length; i++){
                     articleStr = articleList[i];
                     var url = 'http://en.wikipedia.org/wiki/' + articleStr;
                     wikiInfo+='<li><a href="' + url + '" target="_blank">' + articleStr + '</a></li>';
@@ -171,7 +171,10 @@ var ViewModel = function(){
         loc.infoWindow.infoWindow.open(map, loc.marker.marker);
         if(self.openedLoc){
             self.openedLoc.infoWindow.infoWindow.close();
-            self.openedLoc=loc;
+            if(self.openedLoc !== loc)
+                self.openedLoc=loc;
+            else
+                self.openedLoc=null;
         }
         else
             self.openedLoc=loc;

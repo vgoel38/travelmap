@@ -4,9 +4,9 @@
 /* fontawesome */
 [class*="fontawesome-"]:before {
   font-family: 'FontAwesome', sans-serif;
-  font-size: 30px;
+  font-size: 25px;
   color: white;
-  /*margin-left: 10px;*/
+  margin: 5px;
   /*margin-right: 5px;*/
   text-decoration: none;
 }
@@ -42,7 +42,7 @@ body::-webkit-scrollbar{
     background-color: #262626;
     padding:20px;
     transition: 1s;
-    left:0px;
+    left:-300px;
 }
 
 .heading{
@@ -85,7 +85,7 @@ body::-webkit-scrollbar{
     position: absolute;
     height: 40px;
     width: 40px;
-    left:300px;
+    left:0px;
     z-index: 200;
     background-color: #262626;
     transition: 1s;
@@ -116,9 +116,10 @@ body::-webkit-scrollbar{
 {
     .side-bar{
         width:25%;
+        left:-25%;
     }
     #slide-button{
-        left:25%;
+        left:0px;
     }
 }
 
@@ -126,22 +127,13 @@ body::-webkit-scrollbar{
 {
 
     .side-bar{
-        width:200px;
+        width:250px;
+        left:-250px;
     }
     #slide-button{
-        left:200px;
+        left:0px;
     }
     .location-list{
         font-size:15px;
-    }
-}
-
-@media screen and (max-width: 670px)
-{
-    .side-bar{
-        width:200px;
-    }
-    #slide-button{
-        left:200px;
     }
 }

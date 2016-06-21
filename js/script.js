@@ -12,10 +12,8 @@ function initMap() {
     });
 };
 
-var sliderVisible=true;
+var sliderVisible=false;
 var widthOfSideBar = $('.side-bar').width();
-var hiddenBar = 'translate(-'+widthOfSideBar+'px,0px)';
-var visibleBar = 'translate('+widthOfSideBar+'px,0px)';
 
 $('#slide-button').click(function(){
 
