@@ -9,9 +9,9 @@ APIs Used:
 * [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page)
 
 ## HOW TO USE
-1.Click <a href="https://vgoel38.github.io/travelmap">here</a> to download the zip file.
+1. Click <a href="https://vgoel38.github.io/travelmap" target="_blank">here</a> to download the zip file.
 2. Unzip the file and click the index.html file.
-3. Make sure the file opens in a browser. If it does not, right click on the file. Then click on >open with
+3. Make sure the file opens in a browser. If it does not, right click on the file. Then click on "Open With"
 and then choose a browser of your choice.
 4. Fiddle around a bit. :)
 
