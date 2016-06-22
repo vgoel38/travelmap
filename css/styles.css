@@ -95,6 +95,15 @@ body::-webkit-scrollbar{
     margin-top: 10px;
 }
 
+.footer{
+    position: absolute;
+    bottom:0;
+    color:white;
+    font:20px;
+    font-family: 'Dancing Script', cursive;
+    opacity: 0.8;
+}
+
 /*Designing the map*/
 #map {
     position: absolute;
@@ -108,18 +117,21 @@ body::-webkit-scrollbar{
 
 @media screen and (max-width: 1000px)
 {
-    .side-bar{
+    .side-bar {
         width: 250px;
         left: -250px;
     }
-    #slide-button{
+    #slide-button {
         left: 0px;
+    }
+    .location-list {
+        height: 55%;
     }
 }
 
 @media screen and (max-width: 800px)
 {
-    .location-list{
+    .location-list {
         font-size: 15px;
     }
 }
