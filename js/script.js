@@ -1,5 +1,6 @@
 var map;
 
+//Initializing the map
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 21.2787, lng: 81.8661},
@@ -12,8 +13,9 @@ function initMap() {
     });
 };
 
+//Animating the side bar
 var sliderVisible=false;
-var widthOfSideBar = $('.side-bar').width();
+var widthOfSideBar = $('.side-bar').width()+40;
 
 $('#slide-button').click(function(){
 

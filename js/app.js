@@ -1,5 +1,3 @@
-$(function(){
-
 //JSON of all the map locations
 var locations = [
     {
@@ -134,7 +132,7 @@ var ViewModel = function(){
         //Since the wikipedia info is received by the browser asynchronously, the markers and list have to be
         //created only after the wiki info is received. Therefore, the locationList Array is built within the
         //ajax request.
-        //Doubt- What if I want to use two APIs instead of a single API?
+        //Doubt- What if I want to use more than one API? I cannot figure out how to do that.
         $.ajax ({
             url: wikiURL,
             dataType: "jsonp"
@@ -151,6 +149,7 @@ var ViewModel = function(){
                 self.locationList.push(new Location(loc,wikiInfo));
                 //Adding Marker Animation and Info Window to the last item in the array
                 self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
+
             }).fail(function( jqxhr, textStatus, error ) {
                 //error handling
                 var err = textStatus + ", " + error;
@@ -163,12 +162,15 @@ var ViewModel = function(){
             });
     });
 
-    //Sets Animation and InfoWindow to a location
+    //Sets Animation and InfoWindow to a location marker
     self.animateAndShowInfo = function(loc){
 
         loc.marker.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function(){ loc.marker.marker.setAnimation(null); }, 750);
         loc.infoWindow.infoWindow.open(map, loc.marker.marker);
+
+        //Only one infoWindow can be open at one time.
+        //Also clicking a marker should both open/close an infoWindow
         if(self.openedLoc){
             self.openedLoc.infoWindow.infoWindow.close();
             if(self.openedLoc !== loc)
@@ -198,12 +200,16 @@ var ViewModel = function(){
             //Filtering all locations to display only those that match the filterText value
             self.locationList().forEach(function(loc){
                 if(loc.name().toLowerCase().indexOf(newValue.toLowerCase().trim()) > -1){
-                    loc.visible(true); //Make location visible in the list
-                    loc.marker.marker.setMap(map); //Make marker visible
+                    //Make location visible in the list
+                    loc.visible(true);
+                    //Make marker visible
+                    loc.marker.marker.setMap(map);
                 }
-                else{
-                    loc.visible(false);//Disappear location from the list
-                    loc.marker.marker.setMap(null); //take marker off the map
+                else {
+                    //Disappear location from the list
+                    loc.visible(false);
+                    //take marker off the map
+                    loc.marker.marker.setMap(null);
                 }
             });
         }
@@ -219,5 +225,3 @@ var ViewModel = function(){
 };
 
 ko.applyBindings(new ViewModel());
-
-}());
