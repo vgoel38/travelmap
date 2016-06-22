@@ -124,14 +124,39 @@ body::-webkit-scrollbar{
     #slide-button {
         left: 0px;
     }
-    .location-list {
-        height: 55%;
-    }
 }
 
 @media screen and (max-width: 800px)
 {
     .location-list {
         font-size: 15px;
+    }
+}
+
+@media screen and (max-height: 690px)
+{
+    .location-list {
+        height: 55%;
+    }
+}
+
+@media screen and (max-height: 540px)
+{
+    .location-list {
+        height: 45%;
+    }
+}
+
+@media screen and (max-height: 440px)
+{
+    .location-list {
+        height: 35%;
+    }
+}
+
+@media screen and (max-height: 340px)
+{
+    .location-list {
+        height: 25%;
     }
 }

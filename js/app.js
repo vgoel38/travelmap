@@ -147,6 +147,71 @@ var ViewModel = function(){
         }
     }
 
+    //Sets Animation and InfoWindow to a location marker
+    self.animateAndShowInfo = function(loc){
+
+        loc.marker.marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){ loc.marker.marker.setAnimation(null); }, 750);
+        loc.infoWindow.infoWindow.open(map, loc.marker.marker);
+
+        //Only one infoWindow can be open at one time.
+        //Also clicking a marker should both open/close an infoWindow
+        if(self.openedLoc){
+            self.openedLoc.infoWindow.infoWindow.close();
+            if(self.openedLoc !== loc)
+                self.openedLoc=loc;
+            else
+                self.openedLoc=null;
+        }
+        else
+            self.openedLoc=loc;
+
+        //Hide the sidebar when a location in list or a marker is clicked.
+        self.hideSideBar();
+    };
+
+    //Calls animateAndShowInfo on a location marker
+    self.addAnimationAndInfo = function(loc){
+
+        loc.marker.marker.addListener('click', function(){
+            self.animateAndShowInfo(loc);
+        });
+    };
+
+    //Setting up filter
+    self.filterText = ko.observable();
+
+    //This function is called whenever there is a change in the value of the filterText input field
+    //Need to use computed observable instead of subscriber function
+    self.filterText.subscribe(function(newValue){
+        if(newValue)
+        {
+            //Filtering all locations to display only those that match the filterText value
+            self.locationList().forEach(function(loc){
+                if(loc.name().toLowerCase().indexOf(newValue.toLowerCase().trim()) > -1){
+                    //Make location visible in the list
+                    loc.visible(true);
+                    //Make marker visible
+                    loc.marker.marker.setMap(map);
+                }
+                else {
+                    //Disappear location from the list
+                    loc.visible(false);
+                    //take marker off the map
+                    loc.marker.marker.setMap(null);
+                }
+            });
+        }
+        //When the filterText is empty, show all the locations in the list.
+        else
+        {
+            self.locationList().forEach(function(loc){
+                loc.visible(true);
+                loc.marker.marker.setMap(map);
+            });
+        }
+    });
+
     locations.forEach(function(loc){
 
         //Firing Wikipedia API and collecting info for the loc in wikiInfo
@@ -183,80 +248,13 @@ var ViewModel = function(){
             //error handling
             var err = textStatus + ", " + error;
             console.log( "Request Failed: " + err );
-            wikiInfo+='</ul>Sorry! Wikipedia articles could not be loaded!';
+            wikiInfo+='</ul>Sorry! Wikipedia articles could not be loaded! Please refresh the page or try again after sometime.';
             //Building the locationList Array
             self.locationList.push(new Location(loc,wikiInfo));
             //Adding Marker Animation and Info Window to the last item in the array
             self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
         });
     });
-
-    //Sets Animation and InfoWindow to a location marker
-    self.animateAndShowInfo = function(loc){
-
-        loc.marker.marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function(){ loc.marker.marker.setAnimation(null); }, 750);
-        loc.infoWindow.infoWindow.open(map, loc.marker.marker);
-
-        //Only one infoWindow can be open at one time.
-        //Also clicking a marker should both open/close an infoWindow
-        if(self.openedLoc){
-            self.openedLoc.infoWindow.infoWindow.close();
-            if(self.openedLoc !== loc)
-                self.openedLoc=loc;
-            else
-                self.openedLoc=null;
-        }
-        else
-            self.openedLoc=loc;
-
-        //Hide the sidebar when a location in list or a marker is clicked.
-        self.hideSideBar();
-    };
-
-    //Calls animateAndShowInfo on a location marker
-    self.addAnimationAndInfo = function(loc){
-
-        loc.marker.marker.addListener('click', function(){
-            self.animateAndShowInfo(loc);
-        });
-    };
-
-    //Setting up filter
-    self.filterText = ko.observable();
-
-    //This function is called whenever there is a change in the value of the filterText input field
-    self.filterText.subscribe(function(newValue){
-        if(newValue)
-        {
-            //Filtering all locations to display only those that match the filterText value
-            self.locationList().forEach(function(loc){
-                if(loc.name().toLowerCase().indexOf(newValue.toLowerCase().trim()) > -1){
-                    //Make location visible in the list
-                    loc.visible(true);
-                    //Make marker visible
-                    loc.marker.marker.setMap(map);
-                }
-                else {
-                    //Disappear location from the list
-                    loc.visible(false);
-                    //take marker off the map
-                    loc.marker.marker.setMap(null);
-                }
-            });
-        }
-        //When the filterText is empty, show all the locations in the list.
-        else
-        {
-            self.locationList().forEach(function(loc){
-                loc.visible(true);
-                loc.marker.marker.setMap(map);
-            });
-        }
-    });
-
-    // self.filteredLoc = ko.computed(function(){
-    // });
 };
 
 ko.applyBindings(new ViewModel());
