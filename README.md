@@ -15,6 +15,8 @@ APIs Used:
 and then choose a browser of your choice.
 4. Fiddle around a bit. :)
 
+<hr>
+
 ![Snapshot Of TravelMap]
 (https://github.com/vgoel38/travelmap/blob/master/images/travelmap-snapshot.png)
 
