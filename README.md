@@ -7,3 +7,7 @@ You can also enter a location name in the text box in the slider menu on the lef
 APIs Used:
 * [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial)
 * [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page)
+
+![Snapshot Of TravelMap]
+(https://github.com/vgoel38/travelmap/blob/master/images/travelmap-snapshot.png)
+
