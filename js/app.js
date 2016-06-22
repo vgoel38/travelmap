@@ -123,6 +123,30 @@ var ViewModel = function(){
     //LocationList Array
     self.locationList = ko.observableArray([]);
 
+    //Toggling sidebar
+    var sliderVisible = false;
+    self.widthOfSideBar = $('.side-bar').width()+40;
+    self.toggleSideBar = function(){
+        if(sliderVisible){
+            $('#slide-button').css('left','0');
+            $('.side-bar').css('left','-'+self.widthOfSideBar+'px');
+            sliderVisible=false;
+        }
+        else
+        {
+            $('#slide-button').css('left',self.widthOfSideBar+'px');
+            $('.side-bar').css('left','0');
+            sliderVisible=true;
+        }
+    }
+    self.hideSideBar = function(){
+        if(sliderVisible){
+            $('#slide-button').css('left','0');
+            $('.side-bar').css('left','-'+self.widthOfSideBar+'px');
+            sliderVisible=false;
+        }
+    }
+
     locations.forEach(function(loc){
 
         //Firing Wikipedia API and collecting info for the loc in wikiInfo
@@ -132,35 +156,39 @@ var ViewModel = function(){
         //Since the wikipedia info is received by the browser asynchronously, the markers and list have to be
         //created only after the wiki info is received. Therefore, the locationList Array is built within the
         //ajax request.
-        //Doubt- What if I want to use more than one API? I cannot figure out how to do that.
+        //The above method won't be a good option in case there are too many locations because the user will
+        //have to wait till all the markers have been added to the map.
+        //The alternative is to make ajax request only when a marker is clicked. This way, more than one API can
+        //be used as well.
         $.ajax ({
             url: wikiURL,
-            dataType: "jsonp"
-            }).done(function(response){
-                var articleList = response[1];
-                //Showing at most 4 articles of each location
-                for (var i=0; i<4 && i<articleList.length; i++){
-                    articleStr = articleList[i];
-                    var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-                    wikiInfo+='<li><a href="' + url + '" target="_blank">' + articleStr + '</a></li>';
-                };
-                wikiInfo+='</ul>';
+            dataType: "jsonp",
+            timeout: 2000
+        }).done(function(response){
+            var articleList = response[1];
+            //Showing at most 4 articles of each location
+            for (var i=0; i<4 && i<articleList.length; i++){
+                articleStr = articleList[i];
+                var url = 'http://en.wikipedia.org/wiki/' + articleStr;
+                wikiInfo+='<li><a href="' + url + '" target="_blank">' + articleStr + '</a></li>';
+            };
+            wikiInfo+='</ul>';
 
-                //Building the locationList Array
-                self.locationList.push(new Location(loc,wikiInfo));
-                //Adding Marker Animation and Info Window to the last item in the array
-                self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
+            //Building the locationList Array
+            self.locationList.push(new Location(loc,wikiInfo));
+            //Adding Marker Animation and Info Window to the last item in the array
+            self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
 
-            }).fail(function( jqxhr, textStatus, error ) {
-                //error handling
-                var err = textStatus + ", " + error;
-                console.log( "Request Failed: " + err );
-                wikiInfo+='</ul>Sorry! Wikipedia articles could not be loaded!';
-                //Building the locationList Array
-                self.locationList.push(new Location(loc,wikiInfo));
-                //Adding Marker Animation and Info Window to the last item in the array
-                self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
-            });
+        }).fail(function( jqxhr, textStatus, error ) {
+            //error handling
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
+            wikiInfo+='</ul>Sorry! Wikipedia articles could not be loaded!';
+            //Building the locationList Array
+            self.locationList.push(new Location(loc,wikiInfo));
+            //Adding Marker Animation and Info Window to the last item in the array
+            self.addAnimationAndInfo(self.locationList()[self.locationList().length-1]);
+        });
     });
 
     //Sets Animation and InfoWindow to a location marker
@@ -181,6 +209,9 @@ var ViewModel = function(){
         }
         else
             self.openedLoc=loc;
+
+        //Hide the sidebar when a location in list or a marker is clicked.
+        self.hideSideBar();
     };
 
     //Calls animateAndShowInfo on a location marker
@@ -223,6 +254,9 @@ var ViewModel = function(){
             });
         }
     });
+
+    // self.filteredLoc = ko.computed(function(){
+    // });
 };
 
 ko.applyBindings(new ViewModel());

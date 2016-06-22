@@ -14,21 +14,21 @@ function initMap() {
 };
 
 //Animating the side bar
-var sliderVisible=false;
-var widthOfSideBar = $('.side-bar').width()+40;
+// var sliderVisible=false;
+// var widthOfSideBar = $('.side-bar').width()+40;
 
-$('#slide-button').click(function(){
+// $('#slide-button').click(function(){
 
-    if(sliderVisible){
-        $('#slide-button').css('left','0');
-        $('.side-bar').css('left','-'+widthOfSideBar+'px');
-        sliderVisible=false;
-    }
-    else
-    {
-        $('#slide-button').css('left',widthOfSideBar+'px');
-        $('.side-bar').css('left','0');
-        sliderVisible=true;
-    }
+//     if(sliderVisible){
+//         $('#slide-button').css('left','0');
+//         $('.side-bar').css('left','-'+widthOfSideBar+'px');
+//         sliderVisible=false;
+//     }
+//     else
+//     {
+//         $('#slide-button').css('left',widthOfSideBar+'px');
+//         $('.side-bar').css('left','0');
+//         sliderVisible=true;
+//     }
 
-});
+// });
