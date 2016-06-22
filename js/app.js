@@ -138,6 +138,7 @@ var ViewModel = function(){
             dataType: "jsonp"
             }).done(function(response){
                 var articleList = response[1];
+                //Showing at most 4 articles of each location
                 for (var i=0; i<4 && i<articleList.length; i++){
                     articleStr = articleList[i];
                     var url = 'http://en.wikipedia.org/wiki/' + articleStr;
