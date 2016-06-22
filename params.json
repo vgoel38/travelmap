@@ -1,6 +1,6 @@
 {
   "name": "TravelMap",
   "tagline": "the places I have been",
-  "body": "#TravelMap\r\nTravelMap is a web application which lists all the places I have ever been to, on the Google Map. Click on\r\na place marker to see the latest Wikipedia articles about that place.\r\n\r\nYou can also enter a location name in the text box in the slider menu on the left to filter among the places. Click on a location in the list to read the information about that place.\r\n\r\nAPIs Used:\r\n* [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial)\r\n* [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page)\r\n\r\n![Snapshot Of TravelMap]\r\n(https://github.com/vgoel38/travelmap/blob/master/images/travelmap-snapshot.png)\r\n\r\n",
+  "body": "#TravelMap\r\nTravelMap is a web application which lists all the places I have ever been to, on the Google Map. Click on\r\na place marker to see the latest Wikipedia articles about that place.\r\n\r\nYou can also enter a location name in the text box in the slider menu on the left to filter among the places. Click on a location in the list to read the information about that place.\r\n\r\nAPIs Used:\r\n* [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial)\r\n* [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page)\r\n\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
