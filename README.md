@@ -1,4 +1,4 @@
-[#TravelMap](https://vgoel38.github.io/travelmap)
+<h1><a href="https://vgoel38.github.io/travelmap">TravelMap</a></h1>
 TravelMap is a web application which lists all the places I have ever been to, on the Google Map. Click on
 a place marker to see the latest Wikipedia articles about that place.
 
