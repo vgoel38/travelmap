@@ -13,7 +13,7 @@ APIs Used:
 2. Unzip the file and click the index.html file.
 3. Make sure the file opens in a browser. If it does not, right click on the file. Then click on "Open With"
 and then choose a browser of your choice.
-4. Fiddle around a bit. :)
+4. Play around. :)
 
 <hr>
 
